@@ -9,9 +9,9 @@ export default class Game extends Phaser.Scene {
     }
 
     preload() { 
-        this.load.spritesheet('pinkfire', '../public/assets/pinkfire.png', {frameWidth: 258, frameHeight: 258});
-        this.load.spritesheet('purplefire', '../public/assets/purplesprite.png', {frameWidth: 258, frameHeight: 258});
-        this.load.spritesheet('yellowfire', '../public/assets/yellowsprite.png', {frameWidth: 258, frameHeight: 258});
+        this.load.spritesheet('pinkfire', 'assets/images/pinkfire.png', {frameWidth: 258, frameHeight: 258});
+        this.load.spritesheet('purplefire', 'assets/images/purplesprite.png', {frameWidth: 258, frameHeight: 258});
+        this.load.spritesheet('yellowfire', 'assets/images/yellowsprite.png', {frameWidth: 258, frameHeight: 258});
     }
 
     create() {
