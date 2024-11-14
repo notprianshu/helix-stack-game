@@ -1,6 +1,7 @@
 import Phaser from "phaser";
 import Box from "../gameobjects/box.js";
 import FadeBox from "../gameobjects/fadebox.js";
+import Fireworks from '../gameobjects/fireworks.js';
 
 export default class Game extends Phaser.Scene {
     constructor() {
@@ -8,9 +9,14 @@ export default class Game extends Phaser.Scene {
     }
 
     preload() { 
+        this.load.spritesheet('pinkfire', '../assets/pinkfire.png', {frameWidth: 258, frameHeight: 258});
+        this.load.spritesheet('purplefire', '../assets/purplesprite.png', {frameWidth: 258, frameHeight: 258});
+        this.load.spritesheet('yellowfire', '../assets/yellowsprite.png', {frameWidth: 258, frameHeight: 258});
     }
 
     create() {
+        this.gameover = false;
+        this.score = 0;
         this.space = this.input.keyboard.addKey(
             Phaser.Input.Keyboard.KeyCodes.SPACE
         );
@@ -18,6 +24,7 @@ export default class Game extends Phaser.Scene {
         this.baseBox = new Box(this, 256, 480, 64, false);
         this.newBox = new Box(this);
         this.spaceKeyUp = true;
+        // new Fireworks(this);
     }
 
     update() {
@@ -44,9 +51,22 @@ export default class Game extends Phaser.Scene {
             this.spaceKeyUp = true;
         }
 
-        if (this.newBox.getBottomRight().y > this.baseBox.getTopRight().y) {
-            console.log("Game Over!");
-            this.scene.pause();
+        if (!this.gameover && (this.newBox.y >= this.baseBox.y)) {
+            this.gameover = true;
+            console.log(this.newBox, this.baseBox);
+            this.fadeOut = this.tweens.add({
+                targets: this.newBox,
+                y: {from: this.newBox.y, to: this.newBox.y + 10},
+                alpha: {from: 1, to: 0},
+                duration: 300,
+                onComplete: () => {
+                    this.newBox.destroy();
+                }
+        })
+        }
+
+        if (this.gameover) {
+            console.log('gameover')
         }
     }
 
@@ -64,7 +84,15 @@ export default class Game extends Phaser.Scene {
 
         this.newBox.destroy();
         this.baseBox = new Box(this, x, y, width, false);
-        this.newBox = new Box(this, 32, 32, width);
+        this.score += 1;
+        if (this.score == 7) {
+            console.log(this.score);
+            new Fireworks(this);
+            // this.scene.pause();
+        }
+        else {
+            this.newBox = new Box(this, 32, 32, width);
+        }
     }
 
     createFadeBox() {
