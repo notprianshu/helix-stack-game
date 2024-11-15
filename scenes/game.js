@@ -61,12 +61,11 @@ export default class Game extends Phaser.Scene {
                 onComplete: () => {
                     this.newBox.destroy();
                 }
-        })
-        }
-
-        if (this.gameover) {
+            })
             console.log('gameover')
         }
+// if (this.gameover) {
+//         }
     }
 
     onCollide() {
