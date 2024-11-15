@@ -24,9 +24,7 @@ export default class Game extends Phaser.Scene {
         this.baseBox = new Box(this, 256, 480, 64, false);
         this.newBox = new Box(this);
         this.spaceKeyUp = true;
-    }
 
-    update() {
         this.physics.add.overlap(
             this.newBox,
             this.baseBox,
@@ -34,7 +32,9 @@ export default class Game extends Phaser.Scene {
             null,
             this
         );
+    }
 
+    update() {
         if (this.space.isDown && this.spaceKeyUp) {
             this.spaceKeyUp = false;
 
@@ -91,6 +91,14 @@ export default class Game extends Phaser.Scene {
         else {
             this.newBox = new Box(this, 32, 32, width);
         }
+
+        this.physics.add.overlap(
+            this.newBox,
+            this.baseBox,
+            () => this.onCollide(),
+            null,
+            this
+        );
     }
 
     createFadeBox() {
