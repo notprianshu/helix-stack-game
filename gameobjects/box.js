@@ -17,7 +17,7 @@ export default class Box extends Phaser.GameObjects.Rectangle {
         this.leftToRight();
     }
     printCenter() {
-        console.log(this.getCenter().x)
+        // console.log(this.getCenter().x)
         this.scene.time.delayedCall(
             1000,
             () => this.printCenter()

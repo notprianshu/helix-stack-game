@@ -12,9 +12,11 @@ export default class Game extends Phaser.Scene {
         this.load.spritesheet('pinkfire', 'assets/images/pinkfire.png', {frameWidth: 258, frameHeight: 258});
         this.load.spritesheet('purplefire', 'assets/images/purplesprite.png', {frameWidth: 258, frameHeight: 258});
         this.load.spritesheet('yellowfire', 'assets/images/yellowsprite.png', {frameWidth: 258, frameHeight: 258});
+        this.load.bitmapFont('arcade', 'assets/fonts/arcade.png', 'assets/fonts/arcade.xml');
     }
 
     create() {
+        this.registry.set('win', false)
         this.gameover = false;
         this.score = 0;
         this.space = this.input.keyboard.addKey(
@@ -62,10 +64,9 @@ export default class Game extends Phaser.Scene {
                     this.newBox.destroy();
                 }
             })
+            setTimeout(() => this.scene.start('gameover'), 500);
             console.log('gameover')
         }
-// if (this.gameover) {
-//         }
     }
 
     onCollide() {
@@ -83,10 +84,13 @@ export default class Game extends Phaser.Scene {
         this.newBox.destroy();
         this.baseBox = new Box(this, x, y, width, false);
         this.score += 1;
+
         if (this.score == 7) {
+            this.gameover = true;
+            this.registry.set('win', true);
             console.log(this.score);
             new Fireworks(this);
-            // this.scene.pause();
+            setTimeout(() => this.scene.start('gameover'), 10000);
         }
         else {
             this.newBox = new Box(this, 32, 32, width);
@@ -106,10 +110,8 @@ export default class Game extends Phaser.Scene {
         let y = this.baseBox.y - 64;
         let x;
         if (this.newBox.x < this.baseBox.x) {
-            // x = this.newBox.x - Math.abs(this.baseBox.x - this.newBox.x);
             x = this.baseBox.getBottomLeft().x - (width/2);
         } else {
-            // x = this.newBox.x + Math.abs(this.baseBox.x - this.newBox.x);
             x = this.baseBox.getBottomRight().x + (width/2);
         }
         new FadeBox(this, x, y, width);

@@ -1,11 +1,12 @@
 import Phaser from 'phaser';
 import Game from './scenes/game.js'
+import GameOver from './scenes/gameover.js';
 
 const config = {
     type: Phaser.AUTO,
     width: 512,
     height: 512,
-    scene: Game,
+    scene: [Game, GameOver],
     physics: {
         default: 'arcade',
         arcade: {

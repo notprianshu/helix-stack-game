@@ -28,9 +28,6 @@ export default class Fireworks {
                 console.log('hello');
             }, k*1000)
         }
-        // this.fireworks.forEach((f) => {
-        //     new Firework(this.scene, f);
-        // })
     }
 }
 
@@ -41,7 +38,7 @@ class Firework extends Phaser.GameObjects.Sprite {
         this.y = Phaser.Math.Between(100, 200);
         this.firename = firename;
         this.scene.add.existing(this);
-        this.scene.physics.add.existing(this);
+        // this.scene.physics.add.existing(this);
         this.init();
     }
     init() {
