@@ -54,7 +54,7 @@ export default class Game extends Phaser.Scene {
 
         if (!this.gameover && (this.newBox.y >= this.baseBox.y)) {
             this.gameover = true;
-            console.log(this.newBox, this.baseBox);
+            // console.log(this.newBox, this.baseBox);
             this.fadeOut = this.tweens.add({
                 targets: this.newBox,
                 y: {from: this.newBox.y, to: this.newBox.y + 10},
